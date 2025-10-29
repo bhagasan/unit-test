@@ -12,13 +12,19 @@ const Topbar = ({ title }: Props) => {
   const renderBradcrumb = () => {
     const temp: ReactNode[] = [];
     if (typeof title === 'string') {
-      temp.push(<BreadcrumbItem className='hidden md:block'>{title}</BreadcrumbItem>);
+      temp.push(
+        <BreadcrumbItem key={title} className='hidden md:block'>
+          {title}
+        </BreadcrumbItem>,
+      );
     } else {
       title.forEach((d: BreadcrumbTypes, idx: number) => {
         if (d.url === '#') {
           temp.push(
             <>
-              <BreadcrumbItem className='hidden md:block'>{d.label}</BreadcrumbItem>
+              <BreadcrumbItem key={d.label} className='hidden md:block'>
+                {d.label}
+              </BreadcrumbItem>
               {idx < title.length - 1 && <BreadcrumbSeparator className='hidden md:block' />}
             </>,
           );

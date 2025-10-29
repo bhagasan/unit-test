@@ -1,11 +1,40 @@
+'use client';
+
 import Topbar from '@/components/topbar';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus, RefreshCw, Search } from 'lucide-react';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import TableVM from '@/views/virtual-machine/TableVM';
+import { fetchVMs } from '@/store/actions/vmActions';
+
+type LoadTypes = {
+  setData: Dispatch<SetStateAction<any[]>>;
+  setError: Dispatch<SetStateAction<string | null>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+};
 
 const VMPage = () => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const loadVMs = async ({ setData, setError, setLoading }: LoadTypes) => {
+    try {
+      const json = await fetchVMs();
+      setData(json);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadVMs({ setData, setError, setLoading });
+  }, []);
+
+  console.log({ data });
+
   return (
     <>
       <Topbar title='Virtual Machine' />
@@ -28,8 +57,11 @@ const VMPage = () => {
             </Button>
           </div>
         </div>
-        <TableVM />
-        <div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
+        {loading ? (
+          <div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
+        ) : (
+          <TableVM data={data} />
+        )}
       </div>
     </>
   );
