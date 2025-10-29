@@ -24,12 +24,12 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '/',
+      url: '/dashboard',
       icon: LayoutDashboard,
     },
     {
       title: 'Virtual Machine',
-      url: 'virtual-machine',
+      url: '/virtual-machine',
       icon: Cpu,
     },
     {
@@ -39,11 +39,11 @@ const data = {
       items: [
         {
           title: 'Block Storage',
-          url: 'storage/block-storage',
+          url: '/storage/block-storage',
         },
         {
           title: 'Object Storage',
-          url: 'storage/object-storage',
+          url: '/storage/object-storage',
         },
       ],
     },
@@ -54,15 +54,15 @@ const data = {
       items: [
         {
           title: 'VPC',
-          url: 'network/vpc',
+          url: '/network/vpc',
         },
         {
           title: 'Floating IP',
-          url: 'network/floating-ip',
+          url: '/network/floating-ip',
         },
         {
           title: 'Load Balancer',
-          url: 'network/load-balancer',
+          url: '/network/load-balancer',
         },
       ],
     },
